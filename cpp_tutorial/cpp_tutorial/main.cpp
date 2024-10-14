@@ -1,47 +1,37 @@
 #include <iostream>
+#include <string_view>
 
-double getTowerHeight()
+constexpr std::string_view getQuantityPhrase(int apples)
 {
-    std::cout << "Enter the height of the tower in meters: ";
-    double towerHeight{};
-    std::cin >> towerHeight;
-    return towerHeight;
-}
-
-constexpr double calculateBallHeight(double towerHeight, int seconds)
-{
-    const double gravity{ 9.8 };
-    
-    const double distanceFallen{ (gravity * (seconds * seconds)) / 2.0 };
-    const double currentHeight{ towerHeight - distanceFallen };
-
-    return currentHeight;
-}
-
-void printBallHeight(double ballHeight, int seconds)
-{
-    if (ballHeight > 0.0)
-        std::cout << "At " << seconds << " seconds, the ball is at height: " << ballHeight << " meters\n";
+    if (apples < 0)
+        return "negative";
+    else if (apples == 0)
+        return "no";
+    else if (apples == 1)
+        return "a single";
+    else if (apples == 2)
+        return "a couple of";
+    else if (apples == 3)
+        return "a few";
     else
-        std::cout << "At " << seconds << " seconds, the ball is on the ground";
+        return "many";
 }
 
-void printCalculatedBallHeight(double towerHeight, int seconds)
+constexpr std::string_view getApplesPluralized(int apples)
 {
-    const double ballHeight{ calculateBallHeight(towerHeight, seconds) };
-    printBallHeight(ballHeight, seconds);
+    return apples == 1 ? "apple" : "apples";
 }
 
 int main()
 {
-    const double towerHeight{ getTowerHeight() };
+    constexpr int maryApples { 3 };
+    std:: cout << "Mary has " << getQuantityPhrase(maryApples) << ' ' << getApplesPluralized(maryApples) << ".\n";
     
-    printCalculatedBallHeight(towerHeight, 0);
-    printCalculatedBallHeight(towerHeight, 1);
-    printCalculatedBallHeight(towerHeight, 2);
-    printCalculatedBallHeight(towerHeight, 3);
-    printCalculatedBallHeight(towerHeight, 4);
-    printCalculatedBallHeight(towerHeight, 5);
+    std::cout << "How many apples do you have? ";
+    int numApples{};
+    std::cin >> numApples;
+    
+    std::cout << "You have " << getQuantityPhrase(numApples) << ' ' << getApplesPluralized(numApples) << ".\n";
     
     return 0;
 }
