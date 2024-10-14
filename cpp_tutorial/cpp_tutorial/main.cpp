@@ -1,37 +1,37 @@
 #include <iostream>
-#include <string_view>
+#include <string>
 
-constexpr std::string_view getQuantityPhrase(int apples)
+std::string setPersonName(int num)
 {
-    if (apples < 0)
-        return "negative";
-    else if (apples == 0)
-        return "no";
-    else if (apples == 1)
-        return "a single";
-    else if (apples == 2)
-        return "a couple of";
-    else if (apples == 3)
-        return "a few";
-    else
-        return "many";
+    std::cout << "Enter a name for person " << num << ": ";
+    std::string str {};
+    std::getline(std::cin >> std::ws, str);
+    return str;
 }
 
-constexpr std::string_view getApplesPluralized(int apples)
+int setAge(std::string_view sv)
 {
-    return apples == 1 ? "apple" : "apples";
+    std::cout << "Enter an age for " << sv << ": ";
+    int age { };
+    std::cin >> age;
+    return age;
+}
+
+void printOlder(std::string_view name1, std::string_view name2, int age1, int age2)
+{
+    if (age1 > age2)
+        std::cout << name1 << " (age " << age1 << ") is older than " << name2 << " (age " << age2 << ").\n";
+    else
+        std::cout << name2 << " (age " << age2 << ") is older than " << name1 << " (age " << age1 << ").\n";
 }
 
 int main()
 {
-    constexpr int maryApples { 3 };
-    std:: cout << "Mary has " << getQuantityPhrase(maryApples) << ' ' << getApplesPluralized(maryApples) << ".\n";
-    
-    std::cout << "How many apples do you have? ";
-    int numApples{};
-    std::cin >> numApples;
-    
-    std::cout << "You have " << getQuantityPhrase(numApples) << ' ' << getApplesPluralized(numApples) << ".\n";
-    
+    std::string person1 { setPersonName(1) };
+    int age1 { setAge(person1) };
+    std::string person2 { setPersonName(2) };
+    int age2 { setAge(person2) };
+    printOlder(person1, person2, age1, age2);
+        
     return 0;
 }
