@@ -1,26 +1,14 @@
 #include <iostream>
 
-int getNum()
-{
-    std::cout << "Enter a number: ";
-    int x{};
-    std::cin >> x;
-    return x;
-}
-
 int main()
 {
-    int smaller{ getNum() };
-    int larger{ getNum() };
-    if (larger < smaller)
-    {
-        std::cout << "Swapping the values.\n";
-        int temp { smaller };
-        smaller = larger;
-        larger = temp;
-    }
+    int my_char {97};
     
-    std::cout << "Smaller: " << smaller << " Larger: " << larger << '\n';
-        
+    while (my_char <= 122)
+    {
+        std::cout << "Character: " << static_cast<char>(my_char) << " ASCII code: " << my_char << '\n';
+        ++my_char;
+    }
+
     return 0;
 }
