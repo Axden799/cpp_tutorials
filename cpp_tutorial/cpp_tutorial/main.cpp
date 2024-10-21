@@ -2,18 +2,9 @@
 
 int main()
 {
-    int outer{ 5 };
-    while (outer >= 1)
+    for(int i{ 0 }; i <= 20; i+=2)
     {
-        int inner{ outer };
-        while (inner >= 1)
-        {
-            std::cout << inner << ' ';
-            --inner;
-        }
-        
-        std::cout << '\n';
-        --outer;
+        std::cout << i << " ";
     }
 
     return 0;
