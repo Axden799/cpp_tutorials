@@ -2,12 +2,18 @@
 
 int main()
 {
-    int my_char {97};
-    
-    while (my_char <= 122)
+    int outer{ 5 };
+    while (outer >= 1)
     {
-        std::cout << "Character: " << static_cast<char>(my_char) << " ASCII code: " << my_char << '\n';
-        ++my_char;
+        int inner{ outer };
+        while (inner >= 1)
+        {
+            std::cout << inner << ' ';
+            --inner;
+        }
+        
+        std::cout << '\n';
+        --outer;
     }
 
     return 0;
