@@ -1,19 +1,28 @@
 #include <iostream>
 
-int sumTo(int value)
+void fizzbuzz(int value)
 {
-    int sum { };
-    for(int i{ value }; i > 0; --i)
+    for(int i{ 1 }; i <= value; ++i)
     {
-        sum += i;
+        if (i % 3 == 0 && i % 5 == 0)
+        {
+            std::cout << "fizzbuzz\n";
+        } else if (i % 3 == 0)
+        {
+            std::cout << "fizz\n";
+        } else if (i % 5 == 0)
+        {
+            std::cout << "buzz\n";
+        } else
+        {
+            std::cout << i << '\n';
+        }
     }
-    
-    return sum;
 }
 
 int main()
 {
-    std::cout << sumTo(5) << " \n";
+    fizzbuzz(15);
 
     return 0;
 }
