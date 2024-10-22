@@ -1,16 +1,26 @@
 #include <iostream>
-#include <typeinfo> // for typeid()
 
+namespace constants
+{
+    constexpr double pi { 3.14159 };
+}
+
+using Degrees = double;
+using Radians = double;
+
+double convertToRadians(Degrees degrees)
+{
+    return degrees * constants::pi / 180;
+}
 
 int main()
 {
-    int i{ 2 };
-    std::cout << typeid(i).name() << '\n'; // show us the name of the type for i
+    std::cout << "Enter a number of degrees: ";
+    Degrees degrees{};
+    std::cin >> degrees;
     
-    double d{ 3.5 };
-    std::cout << typeid(d).name() << '\n'; // show us the name of the type for d
+    Radians radians { convertToRadians(degrees) };
+    std::cout << degrees << " degrees is " << radians << " radians.\n";
     
-    std::cout << typeid(i + d).name() << ' ' << i + d << '\n';  // show us the type i + d
-
     return 0;
 }
