@@ -1,26 +1,17 @@
 #include <iostream>
 
-namespace constants
+template <typename T>
+T max(T x, T y)
 {
-    constexpr double pi { 3.14159 };
-}
-
-using Degrees = double;
-using Radians = double;
-
-double convertToRadians(Degrees degrees)
-{
-    return degrees * constants::pi / 180;
+    return (x < y) ? y : x;
 }
 
 int main()
 {
-    std::cout << "Enter a number of degrees: ";
-    Degrees degrees{};
-    std::cin >> degrees;
-    
-    Radians radians { convertToRadians(degrees) };
-    std::cout << degrees << " degrees is " << radians << " radians.\n";
+
+    std::cout << max<int>(1, 2) << '\n';
+    std::cout << max<int>(4, 3) << '\n';
+    std::cout << max<double>(1, 2) << '\n';
     
     return 0;
 }
