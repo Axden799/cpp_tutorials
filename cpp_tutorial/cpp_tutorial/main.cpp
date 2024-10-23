@@ -1,17 +1,26 @@
 #include <iostream>
 
-template <typename T>
-T max(T x, T y)
+// define your factorial() function template here
+template <int N>
+constexpr int factorial()
 {
-    return (x < y) ? y : x;
+    static_assert(N >= 0);
+    
+    int answer{ 1 };
+    for(int i { 2 }; i <= N; ++i)
+        answer *= i;
+    
+    return answer;
 }
 
 int main()
 {
 
-    std::cout << max<int>(1, 2) << '\n';
-    std::cout << max<int>(4, 3) << '\n';
-    std::cout << max<double>(1, 2) << '\n';
+    static_assert(factorial<0>() == 1);
+    static_assert(factorial<3>() == 6);
+    static_assert(factorial<5>() == 120);
     
+    factorial<-3>();
+ 
     return 0;
 }
