@@ -1,26 +1,34 @@
 #include <iostream>
 
-// define your factorial() function template here
-template <int N>
-constexpr int factorial()
+// write your add function template here
+template <typename T>
+T add(T x, T y)
 {
-    static_assert(N >= 0);
-    
-    int answer{ 1 };
-    for(int i { 2 }; i <= N; ++i)
-        answer *= i;
-    
-    return answer;
+    return x + y;
+}
+
+template <typename T>
+T mult(T x, int y)
+{
+    return x * y;
+}
+
+auto sub(auto x, auto y)
+{
+    return x - y;
 }
 
 int main()
 {
-
-    static_assert(factorial<0>() == 1);
-    static_assert(factorial<3>() == 6);
-    static_assert(factorial<5>() == 120);
+    std::cout << add(2, 3) << '\n';
+    std::cout << add(1.2, 3.4) << '\n';
     
-    factorial<-3>();
- 
+    std::cout << mult(2, 3) << '\n';
+    std::cout << mult(1.2, 3) << '\n';
+    
+    std::cout << sub(3, 2) << '\n';
+    std::cout << sub(3.5, 2) << '\n';
+    std::cout << sub(4, 1.5) << '\n';
+
     return 0;
 }
