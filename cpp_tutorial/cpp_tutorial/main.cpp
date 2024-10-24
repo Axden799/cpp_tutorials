@@ -1,20 +1,17 @@
 #include <iostream>
+#include "io.h"
 
-int getNum()
-{
-    int x{};
-    std::cin >> x;
-    return x;
-}
+int readNumber();
+
+void writeAnswer(int answer);
 
 int main()
 {
-    std::cout << "Enter an integer: ";
-    int x { getNum() };
-    std::cout << "Enter another integer: ";
-    int y { getNum() };
-    std::cout << x << " " << "+" << " " << y << " is " << x + y << '\n';
-    std::cout << x << " " << "-" << " " << y << " is " << x - y << '\n';
+    int x{ readNumber() };
+    std::cout << "First number: " << x << '\n';
+    int y{ readNumber() };
+    std::cout << "Second number: " << y << '\n';
+    writeAnswer(x + y);
     
     return 0;
 }
