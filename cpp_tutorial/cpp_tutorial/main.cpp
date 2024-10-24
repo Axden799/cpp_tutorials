@@ -1,45 +1,42 @@
 #include <iostream>
+#include <string>
+#include <string_view>
 
-double getHeight()
+std::string getName(int num)
 {
-    std::cout << "Enter the height of the tower in meters: ";
-    double x{};
-    std::cin >> x;
-    return x;
+    std::cout << "Enter the name of person #" << num << ": ";
+    std::string name{};
+    std::getline(std::cin >> std::ws, name);
+    
+    return name;
 }
 
-constexpr double calculateBallHeight(double towerHeight, int seconds)
+int getAge(std::string_view sv)
 {
-    constexpr double gravity = 9.8;
-    const double distanceFallen{ gravity*(seconds*seconds)/2 };
-    const double currentHeight{ towerHeight - distanceFallen };
-    return currentHeight;
+    std::cout << "Enter the age of " << sv << ": ";
+    int age{};
+    std::cin >> age;
+    
+    return age;
 }
 
-void printBallHeight(double ballHeight, int seconds)
+void printOlder(std::string_view name1, std::string_view name2, int age1, int age2)
 {
-    if (ballHeight > 0)
-        std::cout << "At " << seconds << " seconds, the ball is at height: " << ballHeight << '\n';
+    if (age1 > age2)
+        std::cout << name1 << " (age " << age1 << ") is older than " << name2 << " (age " << age2 << ").\n";
     else
-        std::cout << "At " << seconds << " seconds, the ball is on the ground." << '\n';
-}
-
-void calculateAndPrintBallHeight(double towerHeight, int seconds)
-{
-    const double ballHeight{ calculateBallHeight(towerHeight, seconds) };
-    printBallHeight(ballHeight, seconds);
+        std::cout << name2 << " (age " << age2 << ") is older than " << name1 << " (age " << age1 << ").\n";
 }
 
 int main()
 {
-    const double towerHeight { getHeight() };
-    calculateAndPrintBallHeight(towerHeight, 0);
-    calculateAndPrintBallHeight(towerHeight, 1);
-    calculateAndPrintBallHeight(towerHeight, 2);
-    calculateAndPrintBallHeight(towerHeight, 3);
-    calculateAndPrintBallHeight(towerHeight, 4);
-    calculateAndPrintBallHeight(towerHeight, 5);
-
+    const std::string name1{ getName(1) };
+    const int age1{ getAge(name1) };
+    const std::string name2{ getName(2) };
+    const int age2{ getAge(name2) };
+    
+    printOlder(name1, name2, age1, age2);
+    
     
     return 0;
 }
