@@ -8,11 +8,12 @@ double getHeight()
     return x;
 }
 
-double calculateBallHeight(double towerHeight, int seconds)
+constexpr double calculateBallHeight(double towerHeight, int seconds)
 {
-    double gravity = 9.8;
-    double distanceFallen = gravity*(seconds*seconds)/2;
-    return towerHeight - distanceFallen;
+    constexpr double gravity = 9.8;
+    const double distanceFallen{ gravity*(seconds*seconds)/2 };
+    const double currentHeight{ towerHeight - distanceFallen };
+    return currentHeight;
 }
 
 void printBallHeight(double ballHeight, int seconds)
@@ -25,13 +26,13 @@ void printBallHeight(double ballHeight, int seconds)
 
 void calculateAndPrintBallHeight(double towerHeight, int seconds)
 {
-    double ballHeight = calculateBallHeight(towerHeight, seconds);
+    const double ballHeight{ calculateBallHeight(towerHeight, seconds) };
     printBallHeight(ballHeight, seconds);
 }
 
 int main()
 {
-    double towerHeight { getHeight() };
+    const double towerHeight { getHeight() };
     calculateAndPrintBallHeight(towerHeight, 0);
     calculateAndPrintBallHeight(towerHeight, 1);
     calculateAndPrintBallHeight(towerHeight, 2);
