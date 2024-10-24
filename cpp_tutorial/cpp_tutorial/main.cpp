@@ -1,17 +1,41 @@
 #include <iostream>
-#include "io.h"
 
-int readNumber();
+double getValue()
+{
+    std::cout << "Enter a double value: ";
+    double x{};
+    std::cin >> x;
+    return x;
+}
 
-void writeAnswer(int answer);
+char getSymbol()
+{
+    std::cout << "Enter +, -, *, or /: ";
+    char a{};
+    std::cin >> a;
+    return a;
+}
+
+void calculateResult(double x, double y, char symbol)
+{
+    std::cout << x << " " << symbol << " " << y << " is ";
+    
+    if (symbol == '+')
+        std::cout << x + y << '\n';
+    if (symbol == '-')
+        std::cout << x - y << '\n';
+    if (symbol == '*')
+        std::cout << x * y << '\n';
+    if (symbol == '/')
+        std::cout << x / y << '\n';
+}
 
 int main()
 {
-    int x{ readNumber() };
-    std::cout << "First number: " << x << '\n';
-    int y{ readNumber() };
-    std::cout << "Second number: " << y << '\n';
-    writeAnswer(x + y);
+    double x { getValue() };
+    double y { getValue() };
+    char symbol { getSymbol() };
+    calculateResult(x, y, symbol);
     
     return 0;
 }
