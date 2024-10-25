@@ -1,51 +1,98 @@
-// Make sure that assert triggers even if we compile in release mode
-#undef NDEBUG
-
-#include <cassert> // for assert
+#include "Random.h"
+#include <cstddef> // for std::size_t
 #include <iostream>
 
-bool isPrime(int x)
+int getNum(int guessCount)
 {
-    if (x <= 1)
-        return false;
-    if (x == 2)
-        return true;
-    if (x % 2 == 0)
-        return false;
-    
+    std::cout << "Guess #" << guessCount << ": ";
+    int guess{};
+    std::cin >> guess;
+    ++guessCount;
+    return guess;
+}
 
-    for(int operand{3}; operand * operand <= x; operand += 2)
+int getRandomInt()
+{
+    int min{};
+    std::cout << "Enter the minimum value for a random integer: ";
+    std::cin >> min;
+    
+    int max{};
+    std::cout << "Enter the maximum value for a random integer: ";
+    std::cin >> max;
+    
+    return Random::get(min, max);
+}
+
+int getMaxGuesses()
+{
+    int maxGuesses{};
+    std::cout << "Enter the maximum number of allowed guesses: ";
+    std::cin >> maxGuesses;
+    return maxGuesses;
+}
+
+bool checkResponse(int answer, int guess)
+{
+    if (guess < answer)
     {
-        if (x % operand == 0)
-        {
-            return false;
-        }
+        std::cout << "Your guess is too low.\n";
+        return false;
     }
+    else if (guess > answer)
+    {
+        std::cout << "Your guess is too high.\n";
+        return false;
+    }
+    else
+    {
+        std::cout << "Correct! You win!\n";
+        return true;
+    }
+}
+
+void playGame(int answer, int maxGuesses)
+{
+    for (int guessCount{1}; guessCount <= maxGuesses; ++guessCount)
+    {
+        int guess{ getNum(guessCount) };
+        bool result = checkResponse(answer, guess);
+        if (result)
+            return;
+    }
+    std::cout << "Sorry, you lose. The correct number was " << answer << ".\n";
+}
+
+bool playAgain()
+{
+    char response {};
+    while (response != 'y')
+    {
+        std::cout << "Would you like to play again (y/n)?";
+        std::cin >> response;
+        if (response == 'n')
+            return false;
+    }
+    
     return true;
-    // write this function using a for loop
+    
 }
 
 int main()
 {
-    assert(!isPrime(0)); // terminate program if isPrime(0) is true
-    assert(!isPrime(1));
-    assert(isPrime(2));  // terminate program if isPrime(2) is false
-    assert(isPrime(3));
-    assert(!isPrime(4));
-    assert(isPrime(5));
-    assert(isPrime(7));
-    assert(!isPrime(9));
-    assert(isPrime(11));
-    assert(isPrime(13));
-    assert(!isPrime(15));
-    assert(!isPrime(16));
-    assert(isPrime(17));
-    assert(isPrime(19));
-    assert(isPrime(97));
-    assert(!isPrime(99));
-    assert(isPrime(13417));
-
-    std::cout << "Success!\n";
+    std::cout << "Let's play a game. I'm thinking of a number between 1 and 100. You have 7 tries to guess what it is.\n";
+    
+    bool play { true };
+    while (play)
+    {
+        int answer { getRandomInt() };
+        std::cout << "Answer is: " << answer << '\n';
+        
+        int maxGuesses{ getMaxGuesses() };
+        
+        playGame(answer, maxGuesses);
+        play = playAgain();
+    }
 
     return 0;
 }
