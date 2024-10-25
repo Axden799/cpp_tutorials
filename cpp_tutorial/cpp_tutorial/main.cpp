@@ -1,14 +1,23 @@
 #include "Random.h"
-#include <cstddef> // for std::size_t
+#include <limits>
 #include <iostream>
 
 int getNum(int guessCount)
 {
-    std::cout << "Guess #" << guessCount << ": ";
-    int guess{};
-    std::cin >> guess;
-    ++guessCount;
-    return guess;
+    while (true)
+    {
+        std::cout << "Guess #" << guessCount << ": ";
+        int guess{};
+        std::cin >> guess;
+        
+        bool success{ std::cin };
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        
+        if (!success || guess < 1 || guess > 100)
+            continue;
+        return guess;
+    }
 }
 
 int getRandomInt()
@@ -65,16 +74,22 @@ void playGame(int answer, int maxGuesses)
 
 bool playAgain()
 {
-    char response {};
-    while (response != 'y')
-    {
-        std::cout << "Would you like to play again (y/n)?";
-        std::cin >> response;
-        if (response == 'n')
-            return false;
-    }
-    
-    return true;
+    // Keep asking the user if they want to play again until they pick y or n.
+        while (true)
+        {
+            char response{};
+            std::cout << "Would you like to play again (y/n)? ";
+            std::cin >> response;
+
+            // clear out any extraneous input
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            switch (response)
+            {
+            case 'y': return true;
+            case 'n': return false;
+            }
+        }
     
 }
 
