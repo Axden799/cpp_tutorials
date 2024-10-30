@@ -1,26 +1,26 @@
 #include <iostream>
+#include <algorithm>
 
-namespace constants
+void sort2(int& x, int& y)
 {
-    constexpr double pi { 3.14159 };
-}
-
-using Degrees = double;
-using Radians = double;
-
-Radians convertToRadians(Degrees degrees)
-{
-    return degrees * constants::pi / 180;
+    if (x > y)
+        std::swap(x, y);
+    else
+        return;
 }
 
 int main()
 {
-    std::cout << "Enter a number of degrees: ";
-    Degrees degrees{};
-    std::cin >> degrees;
+    int x { 7 };
+    int y { 5 };
 
-    Radians radians { convertToRadians(degrees) };
-    std::cout << degrees << " degrees is " << radians << " radians.\n";
+    std::cout << x << ' ' << y << '\n'; // should print 7 5
+
+    sort2(x, y); // make sure sort works when values need to be swapped
+    std::cout << x << ' ' << y << '\n'; // should print 5 7
+
+    sort2(x, y); // make sure sort works when values don't need to be swapped
+    std::cout << x << ' ' << y << '\n'; // should print 5 7
 
     return 0;
 }
