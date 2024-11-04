@@ -1,62 +1,38 @@
 #include <iostream>
-#include <string_view>
 
-enum class Animal
+struct AdRevenue
 {
-    pig,
-    chicken,
-    goat,
-    cat,
-    dog,
-    duck,
+    int adsWatched {};
+    double adsClickedPercent {};
+    double averageEarnings {};
 };
 
-constexpr std::string_view getAnimalName(Animal animal)
+AdRevenue getAdvertising()
 {
-    using enum Animal;
-    switch (animal)
-    {
-        case pig: return "pig";
-        case chicken: return "chicken";
-        case goat: return "goat";
-        case cat: return "cat";
-        case dog: return "dog";
-        case duck: return "duck";
-        default: return "???";
-    }
+    AdRevenue temp {};
+    std::cout << "How many ads were shown today? ";
+    std::cin >> temp.adsWatched;
+    std::cout << "What percentage of ads were clicked on by users? ";
+    std::cin >> temp.adsClickedPercent;
+    std::cout << "What was the average earnings per click? ";
+    std::cin >> temp.averageEarnings;
+    
+    return temp;
 }
 
-void printNumberOfLegs(Animal animal)
+
+void printAdData(const AdRevenue& adData)
 {
-    std::string_view name { getAnimalName(animal) };
-    int legs {};
-    using enum Animal;
-    switch (animal)
-    {
-        case chicken:
-        case duck:
-            legs = 2;
-            break;
-        case goat:
-        case cat:
-        case dog:
-        case pig:
-            legs = 4;
-            break;
-        default:
-            std::cout << "???";
-            break;
-    }
-    
-    std::cout << "A " << name << " has " << legs << " legs.\n";
+    std::cout << "Ads watched: " << adData.adsWatched;
+    std::cout << " Percent of ads clicked: " << adData.adsClickedPercent;
+    std::cout << " Average earnings per click: " << adData.averageEarnings;
+    std::cout << " Today's revenue: " << adData.adsWatched * (adData.adsClickedPercent / 100) * adData.averageEarnings << '\n';
 }
 
 int main()
 {
-    Animal cat { Animal::cat };
-    Animal chicken { Animal::chicken };
-    
-    printNumberOfLegs(cat);
-    printNumberOfLegs(chicken);
+    AdRevenue ad{ getAdvertising() };
+    printAdData(ad);
+
     return 0;
 }
