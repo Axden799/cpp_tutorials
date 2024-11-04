@@ -1,26 +1,20 @@
 #include <iostream>
-#include <algorithm>
 
-void sort2(int& x, int& y)
+namespace MonsterType
 {
-    if (x > y)
-        std::swap(x, y);
-    else
-        return;
+    enum MonsterType {
+        orc,
+        goblin,
+        troll,
+        ogre,
+        skeleton,
+    };
 }
 
 int main()
 {
-    int x { 7 };
-    int y { 5 };
-
-    std::cout << x << ' ' << y << '\n'; // should print 7 5
-
-    sort2(x, y); // make sure sort works when values need to be swapped
-    std::cout << x << ' ' << y << '\n'; // should print 5 7
-
-    sort2(x, y); // make sure sort works when values don't need to be swapped
-    std::cout << x << ' ' << y << '\n'; // should print 5 7
-
+    MonsterType::MonsterType monster { MonsterType::skeleton };
+    if (monster == MonsterType::skeleton)
+        std::cout << "I am a skeleton!\n";
     return 0;
 }
