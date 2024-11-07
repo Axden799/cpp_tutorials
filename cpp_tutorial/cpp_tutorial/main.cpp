@@ -1,62 +1,46 @@
 #include <iostream>
-
-enum class MonsterType
-{
-   ogre,
-    dragon,
-    orc,
-    spider,
-    slime,
-};
+#include <string_view>
 
 struct Monster
 {
-    MonsterType type{  };
+    enum Type
+    {
+        ogre,
+        dragon,
+        orc,
+        giant_spider,
+        slime,
+    }
+    Type type{};
     std::string name{};
     int health{};
 };
 
-void printMonster(Monster& monster)
+constexpr std::string_view getMonsterTypeString(Monster::Type type)
 {
-    std::cout << "This ";
-    switch (monster.type)
+    switch(type)
     {
-        case MonsterType::ogre:
-        {
-            std::cout << "Ogre ";
-            break;
-        }
-        case MonsterType::dragon:
-            {
-                std::cout << "Dragon ";
-                break;
-            }
-        case MonsterType::orc:
-            {
-                std::cout << "Orc ";
-                break;
-            }
-        case MonsterType::spider:
-            {
-                std::cout << "Spider ";
-                break;
-            }
-        case MonsterType::slime:
-        {
-            std::cout << "Slime ";
-            break;
-        }
-        default:
-            break;
+    case Monster::ogre: return "Ogre";
+    case Monster::dragon: return "Dragon";
+    case Monster::orc: return "Orc";
+    case Monster::giant_spider: return "Giant Spider";
+    case Monster::slime: return "Slime";
     }
     
-    std::cout << "is named " << monster.name << " and has " << monster.health << " health.\n";
+    return "Unknown";
+}
+
+void printMonster(const Monster& monster)
+{
+    std::cout << "This " << getMonsterTypeString(monster.type) <<
+        " is named " << monster.name <<
+        " and has " << monster.health << " health.\n";
 }
 
 int main()
 {
-    Monster ogre{ MonsterType::ogre, "Torg", 145 };
-    Monster slime{ MonsterType::slime, "Blurp", 23 };
+    Monster ogre{ Monster::ogre, "Torg", 145 };
+    Monster slime{ Monster::slime, "Blurp", 23 };
     printMonster(ogre);
     printMonster(slime);
 
