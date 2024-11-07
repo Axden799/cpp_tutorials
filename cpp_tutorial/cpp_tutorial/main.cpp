@@ -1,38 +1,64 @@
 #include <iostream>
 
-struct AdRevenue
+enum class MonsterType
 {
-    int adsWatched {};
-    double adsClickedPercent {};
-    double averageEarnings {};
+   ogre,
+    dragon,
+    orc,
+    spider,
+    slime,
 };
 
-AdRevenue getAdvertising()
+struct Monster
 {
-    AdRevenue temp {};
-    std::cout << "How many ads were shown today? ";
-    std::cin >> temp.adsWatched;
-    std::cout << "What percentage of ads were clicked on by users? ";
-    std::cin >> temp.adsClickedPercent;
-    std::cout << "What was the average earnings per click? ";
-    std::cin >> temp.averageEarnings;
+    MonsterType type{  };
+    std::string name{};
+    int health{};
+};
+
+void printMonster(Monster& monster)
+{
+    std::cout << "This ";
+    switch (monster.type)
+    {
+        case MonsterType::ogre:
+        {
+            std::cout << "Ogre ";
+            break;
+        }
+        case MonsterType::dragon:
+            {
+                std::cout << "Dragon ";
+                break;
+            }
+        case MonsterType::orc:
+            {
+                std::cout << "Orc ";
+                break;
+            }
+        case MonsterType::spider:
+            {
+                std::cout << "Spider ";
+                break;
+            }
+        case MonsterType::slime:
+        {
+            std::cout << "Slime ";
+            break;
+        }
+        default:
+            break;
+    }
     
-    return temp;
-}
-
-
-void printAdData(const AdRevenue& adData)
-{
-    std::cout << "Ads watched: " << adData.adsWatched;
-    std::cout << " Percent of ads clicked: " << adData.adsClickedPercent;
-    std::cout << " Average earnings per click: " << adData.averageEarnings;
-    std::cout << " Today's revenue: " << adData.adsWatched * (adData.adsClickedPercent / 100) * adData.averageEarnings << '\n';
+    std::cout << "is named " << monster.name << " and has " << monster.health << " health.\n";
 }
 
 int main()
 {
-    AdRevenue ad{ getAdvertising() };
-    printAdData(ad);
+    Monster ogre{ MonsterType::ogre, "Torg", 145 };
+    Monster slime{ MonsterType::slime, "Blurp", 23 };
+    printMonster(ogre);
+    printMonster(slime);
 
     return 0;
 }
